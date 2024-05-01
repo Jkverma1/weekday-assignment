@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Avatar,
   Box,
@@ -10,16 +10,17 @@ import {
   Typography,
 } from "@mui/material";
 import logo from "assets/images/logo.png";
+import smallLogo from "assets/images/logo-small.png";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import SearchIcon from "@mui/icons-material/Search";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import { useSidebar } from "context/SidebarProvider";
 
 const Sidebar = ({ userName }) => {
-  const [openRight, setOpenRight] = useState(true);
-
+  const { openRight, setOpenRight } = useSidebar();
 
   const toggleSidebarRight = () => {
     setOpenRight(!openRight);
@@ -30,7 +31,7 @@ const Sidebar = ({ userName }) => {
         height: "100vh",
         maxHeight: "100vh",
         overflow: "auto",
-        width: "240px",
+        width: openRight ? "240px" : "80px",
         boxSizing: "border-box",
         padding: "20px 10px 20px 25px",
         borderRight: "1px solid rgba(0, 0, 0,0.1)",
@@ -44,20 +45,32 @@ const Sidebar = ({ userName }) => {
             justifyContent: "space-between",
           }}
         >
-          <img src={logo} alt="logo" width="130" />
+          <img
+            src={openRight ? logo : smallLogo}
+            alt="logo"
+            width={openRight ? "130" : "44"}
+          />
           <IconButton
             style={{
               border: "2px solid rgb(233, 235, 235)",
               padding: "0px",
               borderRadius: "8px",
               margin: "0",
+              position: openRight ? "unset" : "absolute",
+              left: 70,
+              background: "white",
+              zIndex: 2,
             }}
             color="inherit"
             aria-label="open drawer"
             onClick={toggleSidebarRight}
             edge="end"
           >
-            {openRight ? <ChevronLeft /> : <ChevronRight />}
+            {openRight ? (
+              <ChevronLeft />
+            ) : (
+              <ChevronRight style={{ zIndex: 2 }} />
+            )}
           </IconButton>
         </Box>
         <Divider style={{ margin: "24px 0" }} />
@@ -67,7 +80,7 @@ const Sidebar = ({ userName }) => {
         style={{ textTransform: "uppercase", fontSize: "10px" }}
         noWrap
       >
-        Looking for a job
+        {openRight ? "Looking for a job" : "GET JOBS"}
       </Typography>
       <List
         style={{
@@ -85,7 +98,7 @@ const Sidebar = ({ userName }) => {
               noWrap
             >
               <PersonOutlineIcon color="black" />
-              My applied jobs
+              {openRight ? "My applied jobs" : ""}
             </Typography>
           </ListItemText>
         </ListItem>
@@ -97,7 +110,7 @@ const Sidebar = ({ userName }) => {
               noWrap
             >
               <SearchIcon color="black" />
-              Search jobs
+              {openRight ? "Search jobs" : ""}
             </Typography>
           </ListItemText>
         </ListItem>
@@ -109,7 +122,7 @@ const Sidebar = ({ userName }) => {
               noWrap
             >
               <CurrencyRupeeIcon color="black" />
-              Search salary
+              {openRight ? "Search salary" : ""}
             </Typography>
           </ListItemText>
         </ListItem>
@@ -121,7 +134,7 @@ const Sidebar = ({ userName }) => {
               noWrap
             >
               <PersonAddAltIcon color="black" />
-              Ask for referral
+              {openRight ? "Ask for referral" : ""}
             </Typography>
           </ListItemText>
         </ListItem>
@@ -132,7 +145,7 @@ const Sidebar = ({ userName }) => {
         style={{ textTransform: "uppercase", fontSize: "10px" }}
         noWrap
       >
-        RECOMMEND AND EARN
+        {openRight ? "RECOMMEND AND EARN" : "REFER"}
       </Typography>
       <List
         style={{
@@ -150,7 +163,7 @@ const Sidebar = ({ userName }) => {
               noWrap
             >
               <ShareOutlinedIcon color="black" />
-              Refer this extension
+              {openRight ? "Refer this extension" : ""}
             </Typography>
           </ListItemText>
         </ListItem>
@@ -164,9 +177,11 @@ const Sidebar = ({ userName }) => {
         }}
       >
         <Avatar alt={userName} src={""} />
-        <Typography variant="body1" sx={{ marginLeft: "8px", color: "#000" }}>
-          {userName}
-        </Typography>
+        {openRight ? (
+          <Typography variant="body1" sx={{ marginLeft: "8px", color: "#000" }}>
+            {userName}
+          </Typography>
+        ) : null}
       </Box>
     </Box>
   );

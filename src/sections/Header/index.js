@@ -6,13 +6,13 @@ import SideForm from "components/SideForm";
 
 const Header = () => {
   const FirstName = "Anubhav";
-  const LastName = "SDE";
+  const LastName = "CEO";
 
   return (
     <Box style={{ display: "flex", width: "100%" }}>
       <Sidebar userName={FirstName} />
       <Navbar userName={FirstName} />
-      <SideForm firstName={FirstName} LastName={LastName} />
+      <SideForm firstName={FirstName} lastName={LastName} />
     </Box>
   );
 };
