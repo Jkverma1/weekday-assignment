@@ -1,7 +1,27 @@
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import SystemRoutes from "router";
+import "App.css";
+import { ThemeProvider } from "@mui/material";
+import GoogleFontLoader from "react-google-font-loader";
+import { theme } from "theme";
 
-function App() {
-  return <div className="App"></div>;
-}
+const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <GoogleFontLoader
+        fonts={[
+          { font: "Helvetica", weights: [400, 500, 600, 700] },
+          { font: "Arial", weights: [400, 500, 600, 700] },
+        ]}
+      />
+      <Router>
+        <div className="App">
+          <SystemRoutes />
+        </div>
+      </Router>
+    </ThemeProvider>
+  );
+};
 
 export default App;
