@@ -10,7 +10,7 @@ const Navbar = ({ userName }) => {
         position: "unset",
         borderRadius: "10px",
         padding: "0px 30px",
-        width: "auto",
+        width: "calc(100% - 320px - 240px)",
         maxHeight: "65px",
         boxShadow: "rgba(0, 0, 0, 0.2) 0px 2px 4px 0px",
       }}

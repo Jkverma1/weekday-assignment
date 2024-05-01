@@ -8,6 +8,9 @@ export const theme = createTheme({
     black: {
       main: "#000",
     },
+    red: {
+      main: "red",
+    },
   },
   typography: {
     body1: {
@@ -22,7 +25,18 @@ export const theme = createTheme({
       color: "#45c755",
       opacity: 0.87,
       fontWeight: 500,
-      fontFamily: "Helvetica",
+    },
+    caption: {
+      fontSize: "13px",
+      fontWeight: 500,
+    },
+    subtitle2: {
+      fontSize: "0.6875rem",
+      fontWeight: 500,
+    },
+    h5: {
+      fontSize: "1rem",
+      fontWeight: 400,
     },
   },
 });
