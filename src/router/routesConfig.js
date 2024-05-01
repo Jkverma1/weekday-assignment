@@ -1,4 +1,4 @@
-import Home from "page/Home";
+import Home from "pages/Home";
 import RecommendCompany from "pages/RecommendCompany";
 import RecommendShortlist from "pages/RecommendShortlist";
 import ReferExtension from "pages/ReferExtension";
