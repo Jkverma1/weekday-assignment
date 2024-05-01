@@ -5,6 +5,7 @@ import linkedinIcon from "assets/images/linkedin-logo.png";
 import "assets/css/form.css";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import { useSidebar } from "context/SidebarProvider";
+import EditIcon from "@mui/icons-material/Edit";
 
 const SideForm = ({ firstName, lastName }) => {
   const { openLeft, setOpenLeft } = useSidebar();
@@ -54,7 +55,7 @@ const SideForm = ({ firstName, lastName }) => {
         height: "100vh",
         maxHeight: "100vh",
         overflow: "auto",
-        width: openLeft ? "320px" : "80px",
+        width: openLeft ? "320px" : "105px",
         backgroundColor: "#bcfcea",
         boxSizing: "border-box",
         padding: "20px 15px",
@@ -78,7 +79,7 @@ const SideForm = ({ firstName, lastName }) => {
           <IconButton
             style={{
               position: openLeft ? "unset" : "absolute",
-              right: "70px",
+              right: "90px",
               border: "2px solid white",
               backgroundColor: "rgb(217, 243, 235)",
               padding: "0px",
@@ -387,6 +388,22 @@ const SideForm = ({ firstName, lastName }) => {
         <Divider
           style={{ margin: "24px 0", borderTopWidth: "3px", width: "100%" }}
         />
+      )}
+      {!openLeft && (
+        <Typography
+          variant="h6"
+          fontSize={13}
+          fontWeight={600}
+          color="grey"
+          textAlign="center"
+          style={{ cursor: "pointer" }}
+          onClick={toggleSidebarLeft}
+          noWrap
+        >
+          <EditIcon />
+          <br />
+          Edit Profile
+        </Typography>
       )}
     </Box>
   );

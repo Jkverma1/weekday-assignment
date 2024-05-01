@@ -11,6 +11,9 @@ export const theme = createTheme({
     red: {
       main: "red",
     },
+    grey: {
+      main: "#f2f2f266",
+    },
   },
   typography: {
     body1: {
@@ -30,9 +33,25 @@ export const theme = createTheme({
       fontSize: "13px",
       fontWeight: 500,
     },
+    subtitle1: {
+      fontFamily: "Roboto",
+      fontSize: "1rem",
+      fontWeight: 300,
+      lineHeight: "1rem",
+    },
     subtitle2: {
       fontSize: "0.6875rem",
       fontWeight: 500,
+    },
+    p: {
+      fontFamily: "Roboto",
+      fontWeight: 400,
+      lineHeight: 1.5,
+      fontSize: "14px",
+    },
+    h3: {
+      fontSize: "1.5em",
+      fontWeight: 400,
     },
     h5: {
       fontSize: "1rem",
