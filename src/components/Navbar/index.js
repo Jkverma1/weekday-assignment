@@ -5,9 +5,15 @@ import ChatIcon from "assets/icons/ChatIcon";
 const Navbar = ({ userName }) => {
   return (
     <AppBar
-      position="fixed"
       color="white"
-      sx={{ borderRadius: "10px", padding: "0px 30px" }}
+      sx={{
+        position: "unset",
+        borderRadius: "10px",
+        padding: "0px 30px",
+        width: "auto",
+        maxHeight: "65px",
+        boxShadow: "rgba(0, 0, 0, 0.2) 0px 2px 4px 0px",
+      }}
     >
       <Toolbar>
         <Typography variant="h6" noWrap>

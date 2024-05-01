@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import SystemRoutes from "router";
+import 'app.css'
 import { ThemeProvider } from "@mui/material";
 import GoogleFontLoader from "react-google-font-loader";
 import { theme } from "theme";
