@@ -12,6 +12,14 @@ body {
   justify-content: space-between;
 }
 
+.job-filter-form {
+  display: grid;
+  grid-template-columns: 24% 24% 24% 25%;
+  row-gap: 10px;
+  align-items: end;
+  justify-content: space-between;
+}
+
 .mainContent::-webkit-scrollbar {
   display: none;
 }

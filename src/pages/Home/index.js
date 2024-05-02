@@ -5,6 +5,7 @@ import SearchSalary from "components/SearchSalary";
 import ReferralNetwork from "components/ReferralNetwork";
 import JobListTable from "components/JobListTable";
 import axios from "axios";
+import JobListFilter from "components/JobListFilter";
 
 const Home = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -71,7 +72,10 @@ const Home = () => {
       {tabValue === 0 && (
         <>
           {appliedJobs.length > 0 ? (
-            <JobListTable data={appliedJobs} />
+            <>
+              <JobListFilter />
+              <JobListTable data={appliedJobs} />
+            </>
           ) : (
             <NoAppliedJob />
           )}

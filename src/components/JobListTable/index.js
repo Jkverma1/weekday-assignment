@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import JobCard from "components/JobCard";
+import { useSelector } from "react-redux";
 
 const JobListTable = () => {
   const [data, setData] = useState([]);
@@ -22,9 +23,14 @@ const JobListTable = () => {
   const [page, setPage] = useState(1);
   const tableRef = useRef();
   const [copiedId, setCopiedId] = useState(null);
+  const formData = useSelector((state) => state.jobFilter);
+
+  console.log(formData);
 
   useEffect(() => {
     fetchData();
+
+    console.log(formData);
   }, []);
 
   const fetchData = async () => {
@@ -32,10 +38,41 @@ const JobListTable = () => {
     try {
       const response = await axios.post(
         "https://api.weekday.technology/adhoc/getSampleJdJSON",
-        { limit: 5, offset: (page - 1) * 5 },
+        {
+          limit: 5,
+          offset: (page - 1) * 5,
+        },
         { headers: { "Content-Type": "application/json" } }
       );
-      setData((prevData) => [...prevData, ...response.data.jdList]);
+
+      const filteredData = response.data.jdList.filter((item) => {
+        const {
+          minExperience,
+          companyName,
+          location,
+          techStack,
+          role,
+          minBasePay,
+        } = formData;
+
+        const hasFilter = Object.values(formData).some((value) => !!value);
+
+        if (!hasFilter) {
+          return true;
+        }
+        return (
+          (!minExperience || item.experience >= minExperience) &&
+          (!companyName || item.jobDetailsFromCompany.includes(companyName)) &&
+          (!location || item.location.includes(location)) &&
+          (!techStack || item.jobDetailsFromCompany.includes(techStack)) &&
+          (!role || item.jobRole.includes(role)) &&
+          (!minBasePay ||
+            item.minJdSalary >= minBasePay ||
+            item.minJdSalary === null)
+        );
+      });
+
+      setData((prevData) => [...prevData, ...filteredData]);
     } catch (error) {
       setError(error.message);
     }
@@ -80,8 +117,8 @@ const JobListTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.jdUid}>
+          {data.map((row, index) => (
+            <TableRow key={`${row.jdUid}-${index}`}>
               <TableCell>
                 <Button
                   style={{
