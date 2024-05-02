@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  IconButton,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
 
 const SearchSalary = () => {
   const [formData, setFormData] = useState({
@@ -41,41 +33,10 @@ const SearchSalary = () => {
         background: "rgb(255, 255, 255)",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography
-          style={{
-            display: "flex",
-            alignItems: "center",
-            columnGap: "20px",
-          }}
-          variant="h3"
-          fontWeight={500}
-          mb="24px"
-        >
-          <IconButton
-            style={{ height: "40px", width: "40px" }}
-            color="inherit"
-            aria-label="open chatBox"
-            edge="end"
-          >
-            <ChevronLeft />
-          </IconButton>
+      <div>
+        <Typography variant="h3" fontWeight={500} mb="24px">
           Search Salary
         </Typography>
-
-        <IconButton
-          style={{ height: "40px", width: "40px" }}
-          color="inherit"
-          aria-label="open chatBox"
-          edge="end"
-        >
-          <ChevronRight />
-        </IconButton>
       </div>
 
       <form className="search-salary-form" onSubmit={handleSubmit}>

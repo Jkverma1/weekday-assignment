@@ -1,17 +1,38 @@
-import React, { useState } from "react";
-import { Box, Button, Link, Tab, Tabs, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Link, Tab, Tabs, Typography } from "@mui/material";
 import NoAppliedJob from "components/NoAppliedJob";
 import SearchSalary from "components/SearchSalary";
+import ReferralNetwork from "components/ReferralNetwork";
+import JobListTable from "components/JobListTable";
+import axios from "axios";
 
 const Home = () => {
   const [tabValue, setTabValue] = useState(0);
-  const [appliedJobs, setAppliedJobs] = useState(0);
+  const [appliedJobs, setAppliedJobs] = useState([]);
 
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(
+        "https://api.weekday.technology/adhoc/getSampleJdJSON",
+        { limit: 10, offset: 0 },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      setAppliedJobs(response.data.jdList);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
-    <Box padding=" 30px">
+    <Box padding="30px">
       <Box
         style={{
           background: "rgb(217, 254, 211)",
@@ -49,8 +70,13 @@ const Home = () => {
       </Box>
       {tabValue === 0 && (
         <>
-          {appliedJobs > 0 ? null : <NoAppliedJob />}
+          {appliedJobs.length > 0 ? (
+            <JobListTable data={appliedJobs} />
+          ) : (
+            <NoAppliedJob />
+          )}
           <SearchSalary />
+          <ReferralNetwork />
         </>
       )}
       {tabValue === 1 && (
