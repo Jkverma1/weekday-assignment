@@ -1,5 +1,4 @@
 import { Box, Button, Typography } from "@mui/material";
-import InfiniteScrollTable from "components/JobListTable";
 import React from "react";
 
 const ReferralNetwork = () => {

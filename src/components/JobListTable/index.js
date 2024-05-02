@@ -9,8 +9,11 @@ import {
   TableRow,
   Paper,
   Button,
+  Typography,
+  CircularProgress,
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import JobCard from "components/JobCard";
 
 const JobListTable = () => {
   const [data, setData] = useState([]);
@@ -18,6 +21,7 @@ const JobListTable = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const tableRef = useRef();
+  const [copiedId, setCopiedId] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -28,7 +32,7 @@ const JobListTable = () => {
     try {
       const response = await axios.post(
         "https://api.weekday.technology/adhoc/getSampleJdJSON",
-        { limit: 10, offset: (page - 1) * 10 },
+        { limit: 5, offset: (page - 1) * 5 },
         { headers: { "Content-Type": "application/json" } }
       );
       setData((prevData) => [...prevData, ...response.data.jdList]);
@@ -53,6 +57,10 @@ const JobListTable = () => {
 
   const copyIdToClipboard = (id) => {
     navigator.clipboard.writeText(id);
+    setCopiedId(id);
+    setTimeout(() => {
+      setCopiedId(null);
+    }, 1000);
   };
 
   return (
@@ -68,10 +76,7 @@ const JobListTable = () => {
             <TableCell>ID</TableCell>
             <TableCell>Link</TableCell>
             <TableCell>Location</TableCell>
-            <TableCell>Min Experience</TableCell>
-            <TableCell>Max Experience</TableCell>
-            <TableCell>Job Role</TableCell>
-            <TableCell>Max Salary</TableCell>
+            <TableCell>Job Details</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -89,11 +94,10 @@ const JobListTable = () => {
                   }}
                   onClick={() => copyIdToClipboard(row.jdUid)}
                 >
-                  Copy ID
+                  {copiedId === row.jdUid ? "Copied" : "Copy ID"}
                 </Button>
               </TableCell>
               <TableCell>
-                {" "}
                 <Button
                   style={{
                     textTransform: "capitalize",
@@ -110,16 +114,21 @@ const JobListTable = () => {
                 </Button>
               </TableCell>
               <TableCell>{row.location}</TableCell>
-              <TableCell>{row.minExp || "-"}</TableCell>
-              <TableCell>{row.maxExp || "-"}</TableCell>
-              <TableCell>{row.jobRole}</TableCell>
-              <TableCell>{row.maxJdSalary}</TableCell>
+              <TableCell style={{ position: "relative" }}>
+                <JobCard data={row} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
+      {loading && (
+        <CircularProgress style={{ marginTop: "20px", marginLeft: "50%" }} />
+      )}
+      {error && (
+        <Typography variant="body1" style={{ marginTop: "20px", color: "red" }}>
+          Error: {error}
+        </Typography>
+      )}
     </TableContainer>
   );
 };
